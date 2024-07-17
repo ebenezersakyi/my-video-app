@@ -44,8 +44,8 @@ function Banner({ movies }: any) {
 
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10 inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-00" />
 
-            <div className="absolute top-0 left-0 right-0 bottom-0 z-20 bg-[rgba(0,0,0,0.4)] p-7 text-left content-center items-center sm:p-20 lg:p-52">
-              <div className="w-[100%] flex flex-col items-center content-center justify-center lg:w-[55%]">
+            <div className="flex items-center content-center absolute h-full w-full top-0 z-20 bg-[rgba(0,0,0,0.4)] p-7 text-left sm:p-20 lg:p-52">
+              <div className="w-[100%] flex flex-col lg:w-[55%] ">
                 {/* <div> */}
                 <span className="text-[20px] text-red-300 font-thin">
                   Science Fiction

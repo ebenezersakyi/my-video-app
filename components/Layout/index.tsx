@@ -9,7 +9,7 @@ interface Layout {
 
 export default function Layout({ children }: Layout) {
   return (
-    <div className="min-h-[100vh] flex-col text-white">
+    <div className="min-h-[100vh] flex-col text-white bg-black">
       <NavBar />
       {children}
       {/* <Footer /> */}
