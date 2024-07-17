@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { CiSettings, CiUser } from "react-icons/ci";
 import { IoIosSearch } from "react-icons/io";
@@ -27,9 +28,9 @@ function NavBar() {
         isScrolled ? "bg-black" : "bg-transparent"
       }`}
     >
-      <a href="/" className="text-white text-2xl font-bold">
+      <Link href="/" className="text-white text-2xl font-bold">
         MoviesApp
-      </a>
+      </Link>
       <div className="flex items-center space-x-3">
         <IoIosSearch className="cursor-pointer" size={25} color="white" />
         <CiUser className="cursor-pointer" size={25} color="white" />
