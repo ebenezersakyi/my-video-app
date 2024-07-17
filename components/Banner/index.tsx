@@ -2,10 +2,11 @@ import Image from "next/image";
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { IoIosStar } from "react-icons/io";
+import { IoIosStar, IoMdInformationCircleOutline } from "react-icons/io";
 import { FaRegCirclePlay } from "react-icons/fa6";
 
 import { useRouter } from "next/router";
+import { LuInfo } from "react-icons/lu";
 
 function Banner({ movies }: any) {
   const router = useRouter();
@@ -75,18 +76,32 @@ function Banner({ movies }: any) {
                   {movie?.overview}
                 </span>
 
-                <button
-                  className=" relative w-48 px-6 py-3 text-white border border-gray-400 mt-[30px] rounded-full overflow-hidden group"
-                  onClick={() => {
-                    handleNavigate(movie?.id);
-                  }}
-                >
-                  <span className="absolute inset-0 transition-all duration-500 ease-in-out bg-gradient-to-r from-red-600 to-red-950 group-hover:translate-x-full"></span>
-                  <span className="flex items-center justify-center relative z-10 font-roboto">
-                    <FaRegCirclePlay color="white" className="mr-2" />
-                    Watch now
-                  </span>
-                </button>
+                <div className="flex space-x-2 items-center">
+                  <button
+                    className=" relative w-48 px-4 py-3 text-white border border-red-950 mt-[30px] bg-red-400 rounded-lg overflow-hidden group"
+                    onClick={() => {
+                      handleNavigate(movie?.id);
+                    }}
+                  >
+                    <span className="absolute inset-0 transition-all duration-500 ease-in-out bg-gradient-to-r from-red-600 to-red-950 group-hover:translate-x-full"></span>
+                    <span className="flex items-center justify-center relative z-10 font-roboto">
+                      <FaRegCirclePlay color="white" className="mr-2" />
+                      Watch now
+                    </span>
+                  </button>
+                  <button
+                    className=" relative w-48 px-4 py-3 text-white border border-gray-950 mt-[30px] bg-gray-400 rounded-lg overflow-hidden group"
+                    onClick={() => {
+                      handleNavigate(movie?.id);
+                    }}
+                  >
+                    <span className="absolute inset-0 transition-all duration-500 ease-in-out bg-gradient-to-r from-gray-600 to-gray-950 group-hover:translate-x-full"></span>
+                    <span className="flex items-center justify-center relative z-10 font-roboto">
+                      <LuInfo color="white" className="mr-2" />
+                      More info
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
