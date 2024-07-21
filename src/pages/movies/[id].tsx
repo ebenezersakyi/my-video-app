@@ -271,7 +271,7 @@ export default function MovieDetail() {
 
               <div className="space-y-4 mt-8">
                 {similarMovies?.splice(0, 5).map((item: any, index: any) => {
-                  return <SimilarCards movie={item} />;
+                  return <SimilarCards movie={item} key={index} />;
                 })}
               </div>
             </div>
