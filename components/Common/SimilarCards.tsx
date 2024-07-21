@@ -8,7 +8,7 @@ import { IoChevronDown, IoClose, IoPlaySharp } from "react-icons/io5";
 import { MovieType } from "../../types";
 import Modal from "../Modal";
 
-function Card({ movie }: any) {
+function SimilarCards({ movie }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null);
 
@@ -21,7 +21,7 @@ function Card({ movie }: any) {
   return (
     <div>
       <Modal isOpen={isOpen} onClose={handleClose} movie={selectedMovie} />
-      <div className="relative group w-72 h-96 bg-gray-900 rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
+      <div className="relative group w-full h-52 bg-gray-900 rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
         {/* <Link href={`/movies/${movie.id}`}> */}
         <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
           <div className="p-4">
@@ -65,4 +65,4 @@ function Card({ movie }: any) {
   );
 }
 
-export default Card;
+export default SimilarCards;
