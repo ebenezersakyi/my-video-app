@@ -24,7 +24,7 @@ const HomePage = ({ movies }: HomePageProps) => {
   useEffect(() => {
     const randomMovies = getRandomItems(movies, 3);
     setBannerMovies(randomMovies);
-  }, []);
+  }, [movies]);
 
   return (
     <Layout>

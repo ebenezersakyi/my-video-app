@@ -6,6 +6,7 @@ import { MovieType } from "../../../types";
 
 function index() {
   const [movies, setMovies] = useState([]);
+
   const router = useRouter();
   const { query } = router.query;
 
