@@ -3,17 +3,20 @@ import { useEffect, useState } from "react";
 import Layout from "../../../components/Layout";
 import { MovieType } from "../../../types";
 import Image from "next/image";
-import Link from "next/link";
 import { GoDownload, GoShare } from "react-icons/go";
 import { formattedDate } from "../../../utils/dateUtils";
 import { TypeAnimation } from "react-type-animation";
 import SimilarCards from "../../../components/Common/SimilarCards";
+import { GetServerSideProps } from "next";
 
-export default function MovieDetail() {
+interface HomePageProps {
+  movie: MovieType;
+  similarMovies: MovieType[];
+}
+
+const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
   const router = useRouter();
   const { id } = router.query;
-  const [movie, setMovie] = useState<MovieType | null>(null);
-  const [similarMovies, setSimilarMovies] = useState([]);
   const [story, setStory] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
 
@@ -21,48 +24,20 @@ export default function MovieDetail() {
     {
       name: "Share",
       icon: <GoShare size={17} color="white" />,
-      function: "",
+      function: () => downloadAudio(),
     },
     {
       name: "Download",
       icon: <GoDownload size={17} color="white" />,
-      function: "",
+      function: () => downloadAudio(),
     },
   ];
 
   useEffect(() => {
-    if (id) {
-      getMovieDetails();
-      getSimilarMovies();
+    if (movie) {
+      getStory(movie);
     }
-  }, [id]);
-
-  const getMovieDetails = async () => {
-    try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-      );
-      const movieData = await res.json();
-      setMovie(movieData);
-      getStory(movieData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getSimilarMovies = async () => {
-    try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-      );
-
-      const movies = await res.json();
-      console.log(movies.results);
-      setSimilarMovies(movies.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  }, [movie]);
 
   const getStory = async (movieData: any) => {
     try {
@@ -80,7 +55,6 @@ export default function MovieDetail() {
       const data = await res.json();
       setStory(data.data);
       getAudio(data?.data);
-      // console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -116,7 +90,6 @@ export default function MovieDetail() {
       );
 
       const data = await res.json();
-      // const data = await res;
       console.log("audio response", data.audioContent);
 
       const blob = convertBase64ToFile(data.audioContent);
@@ -128,11 +101,9 @@ export default function MovieDetail() {
   };
 
   const convertBase64ToFile = (base64String: string) => {
-    // Decode the Base64 string
     const byteCharacters = atob(base64String);
     const byteArrays = [];
 
-    // Convert the decoded Base64 string to byte array
     for (let offset = 0; offset < byteCharacters.length; offset += 512) {
       const slice = byteCharacters.slice(offset, offset + 512);
 
@@ -145,9 +116,22 @@ export default function MovieDetail() {
       byteArrays.push(byteArray);
     }
 
-    // Create a Blob from the byte array
-    const blob = new Blob(byteArrays, { type: "audio/mp3" }); // Change the MIME type if needed
+    const blob = new Blob(byteArrays, { type: "audio/mp3" });
     return blob;
+  };
+
+  const downloadAudio = () => {
+    if (!audioUrl) {
+      return;
+    }
+    const url = audioUrl;
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = movie?.title;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   if (!movie) {
@@ -168,25 +152,20 @@ export default function MovieDetail() {
 
         <div className="absolute top-0 z-[1px] w-[100%] h-[100%] rounded-md px-[30px] pt-[100px] overflow-y-scroll lg:px-[70px]">
           <div className="relative w-[100%] h-[70vh] bg-black rounded-2xl self-center justify-self-center overflow-y-scroll p-[25px] hide-scrollbar">
-            {story.length > 0 ? (
+            {story?.length > 0 ? (
               <TypeAnimation
                 sequence={[story]}
                 wrapper="span"
                 speed={65}
-                // style={{ color: "grey" }}
                 repeat={0}
                 className="text-[20px] text-gray-400 font-roboto text-justify hide-scrollbar lg:text-[40px]"
               />
             ) : null}
           </div>
           {audioUrl && (
-            // <div className="absolute bottom-0 w-[100%] z-10">
             <audio controls className="w-[100%]">
               <source src={audioUrl} type="audio/mp3" className="bg-black" />
-              {/* Change MIME type if needed */}
-              {/* Your browser does not support the audio element. */}
             </audio>
-            // </div>
           )}
           <div className="flex flex-wrap flex-col space-x-0 px-2 md:flex-wrap lg:flex-row lg:px-16 lg:space-x-4">
             <div className="w-[100%] mt-5 rounded-2xl lg:w-[75%]">
@@ -197,7 +176,7 @@ export default function MovieDetail() {
                 <div className="flex space-x-3 mt-2">
                   <Image
                     src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
-                    alt={movie?.belongs_to_collection?.name}
+                    alt={movie?.title}
                     style={{
                       width: "50px",
                       height: "50px",
@@ -223,6 +202,7 @@ export default function MovieDetail() {
                       <span
                         key={index}
                         className="flex items-center content-center h-[40px] px-[19px] cursor-pointer bg-gray-900 space-x-1 rounded-full"
+                        onClick={() => item.function()}
                       >
                         {item?.icon}
                         <p className="text-[14px]">{item.name}</p>
@@ -234,7 +214,7 @@ export default function MovieDetail() {
               <div className="bg-gray-900 p-[15px] rounded-lg mt-[15px] text-[13px] text-justify">
                 <span>{formattedDate(movie?.release_date)}</span>
                 <p>{movie?.overview}</p>
-                <span className="flex space-x-3 mt-4">
+                <span className="flex flex-wrap space-x-2 mt-4">
                   {movie?.genres?.map((item: any, index: any) => {
                     return (
                       <span
@@ -249,7 +229,7 @@ export default function MovieDetail() {
 
                 <div className="flex flex-col mt-4">
                   <span className="text-[16px]">Production companies</span>
-                  <div className="flex flex-wrap mt-2">
+                  <div className="flex flex-wrap mt-2 space-x-2">
                     {movie?.production_companies?.map(
                       (item: any, index: any) => {
                         return (
@@ -270,7 +250,7 @@ export default function MovieDetail() {
               <span className="text-[20px] text-white">Similar movies</span>
 
               <div className="space-y-4 mt-8">
-                {similarMovies?.splice(0, 5).map((item: any, index: any) => {
+                {similarMovies?.slice(0.5).map((item: any, index: any) => {
                   return <SimilarCards movie={item} key={index} />;
                 })}
               </div>
@@ -280,4 +260,28 @@ export default function MovieDetail() {
       </div>
     </Layout>
   );
-}
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.params as { id: string };
+
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+  );
+  const movieData = await res.json();
+
+  const similarMoviesRes = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+  );
+
+  const movies = await similarMoviesRes.json();
+
+  return {
+    props: {
+      movie: movieData,
+      similarMovies: movies.results,
+    },
+  };
+};
+
+export default MovieDetail;

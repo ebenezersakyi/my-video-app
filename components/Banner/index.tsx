@@ -23,7 +23,7 @@ function Banner({ movies }: any) {
   const router = useRouter();
 
   const handleNavigate = (movieId: any) => {
-    router.push(`/movies/${movieId}`); // Replace with your desired path
+    router.push(`/movies/${movieId}`);
   };
 
   const genres = ["Comedy", "Romance", "Action"];
@@ -38,7 +38,6 @@ function Banner({ movies }: any) {
         showThumbs={false}
         showArrows={false}
         showIndicators={false}
-        // animationHandler={"fade"}
       >
         {movies?.map((movie: any, index: any) => {
           return (

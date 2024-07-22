@@ -3,12 +3,15 @@ import Layout from "../../components/Layout";
 import Banner from "../../components/Banner";
 import Card from "../../components/Common/Card";
 import { MovieType } from "../../types";
+import { useEffect, useState } from "react";
 
 interface HomePageProps {
   movies: MovieType[];
 }
 
 const HomePage = ({ movies }: HomePageProps) => {
+  const [bannerMovies, setBannerMovies] = useState<any>([]);
+
   function getRandomItems(arr: MovieType[], numItems: number): MovieType[] {
     const shuffled = arr.slice();
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -18,11 +21,14 @@ const HomePage = ({ movies }: HomePageProps) => {
     return shuffled.slice(0, numItems);
   }
 
-  const randomMovies = getRandomItems(movies, 3);
+  useEffect(() => {
+    const randomMovies = getRandomItems(movies, 3);
+    setBannerMovies(randomMovies);
+  }, []);
 
   return (
     <Layout>
-      <Banner movies={randomMovies} />
+      {bannerMovies.length > 0 && <Banner movies={bannerMovies} />}
       <div className="relative p-[20px]">
         <div className="flex flex-wrap gap-4 justify-center">
           {movies.map((movie) => (
@@ -46,8 +52,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 
   const movies = await res.json();
-
-  console.log(movies.results);
 
   return {
     props: {

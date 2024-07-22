@@ -1,12 +1,15 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { CiSettings, CiUser } from "react-icons/ci";
+import { CiSearch, CiUser } from "react-icons/ci";
 import { IoIosSearch } from "react-icons/io";
 
 function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchString, setSearchString] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +26,16 @@ function NavBar() {
     };
   }, []);
 
+  const handleKeyDown = (event: any) => {
+    if (event.key === "Enter") {
+      handleEnterPress();
+    }
+  };
+
+  const handleEnterPress = () => {
+    router.push(`/search?query=${searchString}`);
+  };
+
   return (
     <header
       className={`flex p-2 py-5 w-full justify-between fixed top-0 z-10 transition-all duration-300 sm:p-5 lg:px-20 ${
@@ -31,7 +44,7 @@ function NavBar() {
     >
       <Link href="/" className="text-white text-2xl font-bold">
         <Image
-          src={`https://nextflix-azure.vercel.app/_next/image?url=%2Fassets%2Flogo.png&w=96&q=75`}
+          src={`/logo.png`}
           alt={"logo"}
           style={{
             width: "100px",
@@ -44,8 +57,20 @@ function NavBar() {
           priority
         />
       </Link>
-      <div className="flex items-center space-x-3">
-        <IoIosSearch className="cursor-pointer" size={25} color="white" />
+
+      <div className="flex items-center space-x-4">
+        <div className="flex items-center rounded-md px-2 bg-white/25 backdrop-blur-xl">
+          <CiSearch color="white" size={20} />
+          <input
+            type="text"
+            className="border-none outline-none p-2 bg-transparent text-white placeholder:text-gray-400"
+            placeholder="Search..."
+            onChange={(e) => {
+              setSearchString(e.target.value);
+            }}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
         <CiUser className="cursor-pointer" size={25} color="white" />
       </div>
     </header>

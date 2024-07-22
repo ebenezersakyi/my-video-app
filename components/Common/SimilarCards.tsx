@@ -7,16 +7,23 @@ import { FaChevronDown, FaPlay, FaRegCirclePlay } from "react-icons/fa6";
 import { IoChevronDown, IoClose, IoPlaySharp } from "react-icons/io5";
 import { MovieType } from "../../types";
 import Modal from "../Modal";
+import { useRouter } from "next/router";
 
 function SimilarCards({ movie }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null);
+
+  const router = useRouter();
 
   const handleOpen = (movie: any) => {
     setSelectedMovie(movie);
     setIsOpen(true);
   };
   const handleClose = () => setIsOpen(false);
+
+  const handleNavigate = (movieId: any) => {
+    router.push(`/movies/${movieId}`);
+  };
 
   return (
     <div>
@@ -46,8 +53,13 @@ function SimilarCards({ movie }: any) {
           objectFit="cover"
           className="group-hover:opacity-25 transition-opacity duration-300"
         />
-        <div className=" space-x-2 absolute  inset-0 flex items-center justify-center opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
-          <button className="bg-white text-white p-2 rounded-full flex items-center justify-center">
+        <div className=" space-x-2 absolute  inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 sm:transition-opacity duration-300">
+          <button
+            className="bg-white text-white p-2 rounded-full flex items-center justify-center"
+            onClick={() => {
+              handleNavigate(movie.id);
+            }}
+          >
             <IoPlaySharp color="black" size={20} />
           </button>
           <button
