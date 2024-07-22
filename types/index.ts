@@ -10,7 +10,12 @@ export type MovieType = {
   runtime: string;
   budget: number;
   origin_country: [];
-  production_companies: [];
+  production_companies: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
   genres: [
     {
       id: number;

@@ -4,7 +4,7 @@ import Layout from "../../../components/Layout";
 import Card from "../../../components/Common/Card";
 import { MovieType } from "../../../types";
 
-function index() {
+function Search() {
   const [movies, setMovies] = useState([]);
 
   const router = useRouter();
@@ -32,7 +32,9 @@ function index() {
   return (
     <Layout>
       <div className="pt-[100px] px-[30px]">
-        <span className="text-[25px]">Showing results for "{query}"</span>
+        <span className="text-[25px]">
+          Showing results for &quot;{query}&quot;
+        </span>
         <div className="flex flex-wrap gap-4 justify-center mt-[50px]">
           {movies.map((movie: MovieType) => (
             <Card key={movie.id} movie={movie} />
@@ -43,4 +45,4 @@ function index() {
   );
 }
 
-export default index;
+export default Search;
