@@ -45,14 +45,10 @@ function Banner({ movies }: any) {
               <Image
                 src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
                 alt={movie?.title}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
+                width="0"
+                height="0"
                 sizes="100vw"
-                width={0}
-                height={0}
+                className="w-full h-full object-cover"
                 priority
               />
 

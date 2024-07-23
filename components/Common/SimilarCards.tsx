@@ -49,9 +49,11 @@ function SimilarCards({ movie }: any) {
         <Image
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
-          layout="fill"
-          objectFit="cover"
-          className="group-hover:opacity-25 transition-opacity duration-300"
+          className="w-full h-full group-hover:opacity-25 transition-opacity duration-300 object-cover"
+          width="0"
+          height="0"
+          sizes="100vw"
+          priority
         />
         <div className=" space-x-2 absolute  inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 sm:transition-opacity duration-300">
           <button

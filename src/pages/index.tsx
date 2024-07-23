@@ -4,6 +4,7 @@ import Banner from "../../components/Banner";
 import Card from "../../components/Common/Card";
 import { MovieType } from "../../types";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 interface HomePageProps {
   movies: MovieType[];
@@ -28,6 +29,13 @@ const HomePage = ({ movies }: HomePageProps) => {
 
   return (
     <Layout>
+      <Head>
+        <title>Eben's movie app</title>
+        <meta
+          name="description"
+          content="A Next.js movie app using the TMDB API, featuring popular movies, a detail page, and search functionality. Created for a frontend assessment."
+        />
+      </Head>
       {bannerMovies.length > 0 && <Banner movies={bannerMovies} />}
       <div className="relative p-[20px]">
         <div className="flex flex-wrap gap-4 justify-center">

@@ -8,6 +8,14 @@ import { formattedDate } from "../../../utils/dateUtils";
 import { TypeAnimation } from "react-type-animation";
 import SimilarCards from "../../../components/Common/SimilarCards";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
+import {
+  BarLoader,
+  BeatLoader,
+  FadeLoader,
+  HashLoader,
+  MoonLoader,
+} from "react-spinners";
 
 interface HomePageProps {
   movie: MovieType;
@@ -90,7 +98,6 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
       );
 
       const data = await res.json();
-      console.log("audio response", data.audioContent);
 
       const blob = convertBase64ToFile(data.audioContent);
       const url = URL.createObjectURL(blob);
@@ -135,18 +142,32 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
   };
 
   if (!movie) {
-    return <div>Loading...</div>;
+    return (
+      <Layout>
+        <div className="flex w-full h-full align-middle items-center justify-center content-center">
+          <BarLoader color="white" speedMultiplier={1} />
+        </div>
+      </Layout>
+    );
   }
 
   return (
     <Layout>
+      <Head>
+        <title>Eben's video app - {movie?.title}</title>
+        <meta
+          name="description"
+          content="A Next.js movie app using the TMDB API, featuring popular movies, a detail page, and search functionality. Created for a frontend assessment."
+        />
+      </Head>
       <div className="relative h-[100vh] w-full">
         <Image
           src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
           alt={movie.title}
-          layout="fill"
-          objectFit="cover"
-          className="opacity-50 w-[100vw] h-[100vh]"
+          width="0"
+          height="0"
+          sizes="100vw"
+          className="opacity-50 w-[100vw] h-[100vh] object-cover"
         />
         <div className="absolute inset-0 bg-white bg-opacity-10 backdrop-blur-2xl"></div>
 
@@ -160,12 +181,20 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
                 repeat={0}
                 className="text-[20px] text-gray-400 font-roboto text-justify hide-scrollbar lg:text-[40px]"
               />
-            ) : null}
+            ) : (
+              <div className="flex w-full h-full align-middle items-center justify-center content-center">
+                <BarLoader color="white" speedMultiplier={1} />
+              </div>
+            )}
           </div>
-          {audioUrl && (
+          {audioUrl ? (
             <audio controls className="w-[100%]">
               <source src={audioUrl} type="audio/mp3" className="bg-black" />
             </audio>
+          ) : (
+            <div className="">
+              <HashLoader size={20} color="white" />
+            </div>
           )}
           <div className="flex flex-wrap flex-col space-x-0 px-2 md:flex-wrap lg:flex-row lg:px-16 lg:space-x-4">
             <div className="w-[100%] mt-5 rounded-2xl lg:w-[75%]">
@@ -177,14 +206,10 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
                   <Image
                     src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
                     alt={movie?.title}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                    }}
-                    objectFit="cover"
-                    width={0}
-                    height={0}
+                    width="0"
+                    height="0"
+                    sizes="100vw"
+                    className="w-[50px] h-[50px] rounded-full object-cover"
                   />
                   <span className="flex flex-col justify-center">
                     <p className="text-[15px] font-bold text-gray-200">
