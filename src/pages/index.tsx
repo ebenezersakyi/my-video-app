@@ -30,7 +30,7 @@ const HomePage = ({ movies }: HomePageProps) => {
   return (
     <Layout>
       <Head>
-        <title>Eben's movie app</title>
+        <title>Eben&apos;s movie app</title>
         <meta
           name="description"
           content="A Next.js movie app using the TMDB API, featuring popular movies, a detail page, and search functionality. Created for a frontend assessment."

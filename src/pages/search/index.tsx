@@ -48,7 +48,7 @@ function Search() {
   return (
     <Layout>
       <Head>
-        <title>Eben's video app - {query?.toString()}</title>
+        <title>Eben&apos;s video app - {query?.toString()}</title>
         <meta
           name="description"
           content="A Next.js movie app using the TMDB API, featuring popular movies, a detail page, and search functionality. Created for a frontend assessment."
