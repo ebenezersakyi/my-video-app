@@ -1,5 +1,6 @@
 export type MovieType = {
   id: number;
+  adult: boolean;
   title: string;
   imageUrl: string;
   description: string;

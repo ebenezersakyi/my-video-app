@@ -42,3 +42,8 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.form-radio:checked {
+  background-color: #3b82f6; /* Tailwind Blue 500 */
+  border-color: #3b82f6; /* Tailwind Blue 500 */
+}
