@@ -15,8 +15,7 @@ const Modal: React.FC<MovieModalProps> = ({ isOpen, onClose, movie }) => {
   const router = useRouter();
 
   const handleNavigate = (movieId: any) => {
-    // onClose()
-    router.push(`/movies/${movieId}`); // Replace with your desired path
+    router.push(`/movies/${movieId}`);
   };
 
   return (
@@ -32,15 +31,11 @@ const Modal: React.FC<MovieModalProps> = ({ isOpen, onClose, movie }) => {
               <Image
                 src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
                 alt={movie?.title}
-                style={{
-                  width: "100%",
-                  height: "450px",
-                  objectFit: "cover",
-                }}
                 sizes="100vw"
                 width={0}
                 height={0}
                 priority
+                className="w-[100%] h-[400px] object-cover md:h-[450px]"
               />
               <div className="flex w-full px-4 items-center absolute top-[300px] left-0 z-10 justify-between">
                 <div>
@@ -91,7 +86,7 @@ const Modal: React.FC<MovieModalProps> = ({ isOpen, onClose, movie }) => {
             </div>
             <button
               onClick={onClose}
-              className="absolute top-2 right-2 bg-black rounded-full p-2"
+              className="absolute top-4 right-4 bg-black rounded-full p-2 md:top-2 md:right-2"
             >
               <IoClose color="white" size={25} />
             </button>

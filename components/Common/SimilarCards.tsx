@@ -1,10 +1,8 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import Link from "next/link";
-import moment from "moment";
 import { formattedDate } from "../../utils/dateUtils";
-import { FaChevronDown, FaPlay, FaRegCirclePlay } from "react-icons/fa6";
-import { IoChevronDown, IoClose, IoPlaySharp } from "react-icons/io5";
+import { FaChevronDown } from "react-icons/fa6";
+import { IoPlaySharp } from "react-icons/io5";
 import { MovieType } from "../../types";
 import Modal from "../Modal";
 import { useRouter } from "next/router";
@@ -29,7 +27,6 @@ function SimilarCards({ movie }: any) {
     <div>
       <Modal isOpen={isOpen} onClose={handleClose} movie={selectedMovie} />
       <div className="relative group w-full h-52 bg-gray-900 rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
-        {/* <Link href={`/movies/${movie.id}`}> */}
         <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
           <div className="p-4">
             <h2 className="text-xl font-roboto font-semibold text-white mb-2 line-clamp-1">
@@ -73,7 +70,6 @@ function SimilarCards({ movie }: any) {
             <FaChevronDown color="black" size={20} />
           </button>
         </div>
-        {/* </Link> */}
       </div>
     </div>
   );

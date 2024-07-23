@@ -5,8 +5,6 @@ import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa6";
 const Footer = () => {
   return (
     <footer className="flex relative flex-col items-center content-center bg-[#0d0d0d] bg-gradient-to-b from-black via-transparent to-transparent opacity-00 text-gray-300 pt-24">
-      {/* <div className="absolute top-0 left-0 right-0 bottom-0 z-10 inset-0 bg-gradient-to-b from-black via-transparent to-transparent opacity-00" /> */}
-
       <div className="flex space-x-3">
         <a
           href="https://facebook.com"
@@ -65,8 +63,8 @@ const Footer = () => {
         </li>
       </ul>
 
-      <div className="w-full bg-black py-5 text-center text-[15px]">
-        <p className="text-gray-400">
+      <div className="w-full flex items-center justify-center bg-black py-5 text-center text-[15px]">
+        <p className="text-gray-400 text-[13px] max-w-[90%] sm:text-[17px]">
           © {new Date().getFullYear()} IFMA-Video-App. Digitally crafted by
           <a
             href="https://github.com/ebenezersakyi"
@@ -78,13 +76,6 @@ const Footer = () => {
           </a>
         </p>
       </div>
-
-      {/* <p className="mb-2">
-        A Next.js application that displays and searches for movies using the
-        TMDB API, created as part of a frontend assessment. The app includes a
-        home page with a list of popular movies, a movie detail page, and a
-        search functionality
-      </p> */}
     </footer>
   );
 };
