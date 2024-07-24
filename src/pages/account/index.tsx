@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import { MovieType } from "../../../types";
 import Card from "../../../components/Common/Card";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface HomePageProps {
   movies: MovieType[];
@@ -12,24 +13,13 @@ interface HomePageProps {
 const userProfile = {
   name: "John Doe",
   email: "john.doe@example.com",
-  avatar: "https://via.placeholder.com/150",
-  favorites: [
-    { id: 1, title: "Inception", image: "https://via.placeholder.com/150" },
-    {
-      id: 2,
-      title: "The Dark Knight",
-      image: "https://via.placeholder.com/150",
-    },
-    { id: 3, title: "Interstellar", image: "https://via.placeholder.com/150" },
-    { id: 4, title: "Interstellar", image: "https://via.placeholder.com/150" },
-    { id: 5, title: "Interstellar", image: "https://via.placeholder.com/150" },
-  ],
 };
 
 const Account = ({ movies }: HomePageProps) => {
+  const router = useRouter();
+
   const handleLogout = () => {
-    // Implement your logout functionality here
-    console.log("Logout");
+    router.push(`/`);
   };
 
   return (
@@ -54,7 +44,7 @@ const Account = ({ movies }: HomePageProps) => {
 
           <div className="mt-8">
             <h2 className="text-xl font-semibold mb-4">Favorite Movies</h2>
-            <div className="grid items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="flex flex-col items-center space-y-2 sm:grid grid-cols-2 space-x-4 md:grid-cols-3 gap-4">
               {movies?.slice(0, 6).map((movie) => (
                 <Card key={movie.id} movie={movie} />
               ))}
