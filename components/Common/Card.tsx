@@ -4,7 +4,7 @@ import { formattedDate } from "../../utils/dateUtils";
 import { FaChevronDown } from "react-icons/fa6";
 import { IoPlaySharp } from "react-icons/io5";
 import { MovieType } from "../../types";
-import Modal from "../Modal";
+import MovieModal from "../Modal/MovieModal";
 import { useRouter } from "next/router";
 
 function Card({ movie }: any) {
@@ -25,9 +25,9 @@ function Card({ movie }: any) {
 
   return (
     <div>
-      <Modal isOpen={isOpen} onClose={handleClose} movie={selectedMovie} />
+      <MovieModal isOpen={isOpen} onClose={handleClose} movie={selectedMovie} />
       <div className="relative group w-72 h-96 bg-gray-900 rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute inset-0  flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="p-4">
             <h2 className="text-xl font-roboto font-semibold text-white mb-2 line-clamp-1">
               {movie.title}

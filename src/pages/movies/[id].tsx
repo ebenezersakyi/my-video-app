@@ -9,13 +9,8 @@ import { TypeAnimation } from "react-type-animation";
 import SimilarCards from "../../../components/Common/SimilarCards";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import {
-  BarLoader,
-  BeatLoader,
-  FadeLoader,
-  HashLoader,
-  MoonLoader,
-} from "react-spinners";
+import { BarLoader, HashLoader } from "react-spinners";
+import ShareModal from "../../../components/Modal/ShareModal";
 
 interface HomePageProps {
   movie: MovieType;
@@ -27,12 +22,13 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
   const { id } = router.query;
   const [story, setStory] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
+  const [showShareModal, setShowShareModal] = useState(false);
 
   const actions = [
     {
       name: "Share",
       icon: <GoShare size={17} color="white" />,
-      function: () => downloadAudio(),
+      function: () => setShowShareModal(true),
     },
     {
       name: "Download",
@@ -141,6 +137,10 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
     URL.revokeObjectURL(url);
   };
 
+  const handleClose = () => {
+    setShowShareModal(false);
+  };
+
   if (!movie) {
     return (
       <Layout>
@@ -160,6 +160,13 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
           content="A Next.js movie app using the TMDB API, featuring popular movies, a detail page, and search functionality. Created for a frontend assessment."
         />
       </Head>
+
+      <ShareModal
+        isOpen={showShareModal}
+        onClose={handleClose}
+        link={`link/movies/${id}`}
+      />
+
       <div className="relative h-[100vh] w-full">
         <Image
           src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}

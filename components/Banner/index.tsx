@@ -7,7 +7,7 @@ import { FaRegCirclePlay } from "react-icons/fa6";
 
 import { useRouter } from "next/router";
 import { LuInfo } from "react-icons/lu";
-import Modal from "../Modal";
+import MovieModal from "../Modal/MovieModal";
 import { MovieType } from "../../types";
 
 function Banner({ movies }: any) {
@@ -29,7 +29,7 @@ function Banner({ movies }: any) {
   const genres = ["Comedy", "Romance", "Action"];
   return (
     <div>
-      <Modal isOpen={isOpen} onClose={handleClose} movie={selectedMovie} />
+      <MovieModal isOpen={isOpen} onClose={handleClose} movie={selectedMovie} />
       <Carousel
         autoPlay
         interval={3000}

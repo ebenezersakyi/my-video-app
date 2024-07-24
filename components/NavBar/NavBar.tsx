@@ -71,7 +71,9 @@ function NavBar() {
             onKeyDown={handleKeyDown}
           />
         </div>
-        <CiUser className="cursor-pointer" size={25} color="white" />
+        <Link href="/account">
+          <CiUser className="cursor-pointer" size={25} color="white" />
+        </Link>
       </div>
     </header>
   );

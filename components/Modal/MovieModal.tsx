@@ -11,7 +11,7 @@ interface MovieModalProps {
   movie: any;
 }
 
-const Modal: React.FC<MovieModalProps> = ({ isOpen, onClose, movie }) => {
+const MovieModal: React.FC<MovieModalProps> = ({ isOpen, onClose, movie }) => {
   const router = useRouter();
 
   const handleNavigate = (movieId: any) => {
@@ -97,4 +97,4 @@ const Modal: React.FC<MovieModalProps> = ({ isOpen, onClose, movie }) => {
   );
 };
 
-export default Modal;
+export default MovieModal;

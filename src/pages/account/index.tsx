@@ -1,0 +1,96 @@
+import React from "react";
+import Layout from "../../../components/Layout";
+import { GetServerSideProps } from "next";
+import { MovieType } from "../../../types";
+import Card from "../../../components/Common/Card";
+import Image from "next/image";
+
+interface HomePageProps {
+  movies: MovieType[];
+}
+
+const userProfile = {
+  name: "John Doe",
+  email: "john.doe@example.com",
+  avatar: "https://via.placeholder.com/150",
+  favorites: [
+    { id: 1, title: "Inception", image: "https://via.placeholder.com/150" },
+    {
+      id: 2,
+      title: "The Dark Knight",
+      image: "https://via.placeholder.com/150",
+    },
+    { id: 3, title: "Interstellar", image: "https://via.placeholder.com/150" },
+    { id: 4, title: "Interstellar", image: "https://via.placeholder.com/150" },
+    { id: 5, title: "Interstellar", image: "https://via.placeholder.com/150" },
+  ],
+};
+
+const Account = ({ movies }: HomePageProps) => {
+  const handleLogout = () => {
+    // Implement your logout functionality here
+    console.log("Logout");
+  };
+
+  return (
+    <Layout>
+      <div className="min-h-screen bg-black text-white flex flex-col items-center pt-[100px]">
+        <div className="mt-10 w-full max-w-4xl px-4">
+          <div className="flex items-center space-x-4">
+            <Image
+              src={`https://cdn-icons-png.freepik.com/512/6596/6596121.png`}
+              alt="User Avatar"
+              width="0"
+              height="0"
+              sizes="100vw"
+              priority
+              className="w-24 h-24 rounded-full object-contain"
+            />
+            <div>
+              <h1 className="text-2xl font-bold">{userProfile.name}</h1>
+              <p className="text-gray-400">{userProfile.email}</p>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h2 className="text-xl font-semibold mb-4">Favorite Movies</h2>
+            <div className="grid items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {movies?.slice(0, 6).map((movie) => (
+                <Card key={movie.id} movie={movie} />
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="mt-8 w-full py-2 bg-red-600 hover:bg-red-700 rounded-lg text-white font-semibold"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+  );
+
+  if (!res.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const movies = await res.json();
+
+  return {
+    props: {
+      movies: movies.results,
+    },
+  };
+};
+
+export default Account;
