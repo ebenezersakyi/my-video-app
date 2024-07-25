@@ -164,7 +164,7 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
       <ShareModal
         isOpen={showShareModal}
         onClose={handleClose}
-        link={`link/movies/${id}`}
+        link={`https://assessment-video.vercel.app/movies/${id}`}
       />
 
       <div className="relative h-[100vh] w-full">
