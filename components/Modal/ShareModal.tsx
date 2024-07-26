@@ -1,8 +1,5 @@
 import React from "react";
-import { IoClose } from "react-icons/io5";
 import {
-  FacebookMessengerIcon,
-  FacebookMessengerShareButton,
   RedditIcon,
   RedditShareButton,
   TelegramIcon,
@@ -29,12 +26,6 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, link }) => {
             onClick={onClose}
           ></div>
           <div className=" bg-black p-[20px] max-w-[90%] rounded-lg overflow-hidden shadow-lg transform transition-all duration-300 scale-100 opacity-100">
-            {/* <button
-              onClick={onClose}
-              className="absolute top-2 right-2 bg-black rounded-full p-2 md:top-2 md:right-2"
-            >
-              <IoClose color="white" size={25} />
-            </button> */}
             <span className="text-[20px] font-roboto">Share</span>
             <div className="flex flex-wrap space-x-[20px] mt-4">
               <TwitterShareButton

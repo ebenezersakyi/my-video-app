@@ -42,22 +42,22 @@ const Footer = () => {
 
       <ul className="flex space-x-2 md:space-x-4 pb-24 mt-6">
         <li className="hover:text-red-700">
-          <Link href="/" className="text-[15px] md:text-lg">
+          <Link href="#" className="text-[15px] md:text-lg">
             Home
           </Link>
         </li>
         <li className="hover:text-red-700">
-          <Link href="/movies" className="text-[15px] md:text-lg">
+          <Link href="#" className="text-[15px] md:text-lg">
             Movies
           </Link>
         </li>
         <li className="hover:text-red-700">
-          <Link href="/tv-shows" className="text-[15px] md:text-lg">
+          <Link href="#" className="text-[15px] md:text-lg">
             TV Shows
           </Link>
         </li>
         <li className="hover:text-red-700">
-          <Link href="/contact" className="text-[15px] md:text-lg">
+          <Link href="#" className="text-[15px] md:text-lg">
             Contact Us
           </Link>
         </li>

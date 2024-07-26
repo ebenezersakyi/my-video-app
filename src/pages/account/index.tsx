@@ -6,18 +6,20 @@ import Card from "../../../components/Common/Card";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-interface HomePageProps {
+interface AccountPageProps {
   movies: MovieType[];
 }
 
+// Dummy user profile for demonstration
 const userProfile = {
   name: "John Doe",
   email: "john.doe@example.com",
 };
 
-const Account = ({ movies }: HomePageProps) => {
+const Account = ({ movies }: AccountPageProps) => {
   const router = useRouter();
 
+  // Handle user logout
   const handleLogout = () => {
     router.push(`/`);
   };
@@ -74,11 +76,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
   }
 
-  const movies = await res.json();
+  const data = await res.json();
+
+  const movies: MovieType[] = data.results;
 
   return {
     props: {
-      movies: movies.results,
+      movies,
     },
   };
 };

@@ -12,18 +12,19 @@ import Head from "next/head";
 import { BarLoader, HashLoader } from "react-spinners";
 import ShareModal from "../../../components/Modal/ShareModal";
 
-interface HomePageProps {
+interface MoviesPageProps {
   movie: MovieType;
   similarMovies: MovieType[];
 }
 
-const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
+const MovieDetail = ({ movie, similarMovies }: MoviesPageProps) => {
   const router = useRouter();
   const { id } = router.query;
   const [story, setStory] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
   const [showShareModal, setShowShareModal] = useState(false);
 
+  // Define actions for the action buttons
   const actions = [
     {
       name: "Share",
@@ -43,7 +44,8 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
     }
   }, [movie]);
 
-  const getStory = async (movieData: any) => {
+  // Fetch story based on movie details
+  const getStory = async (movieData: MovieType) => {
     try {
       const res = await fetch(
         `https://video-app-api-sigma.vercel.app/generate-story`,
@@ -64,6 +66,7 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
     }
   };
 
+  // Fetch audio based on story text
   const getAudio = async (text: string) => {
     try {
       const textData = {
@@ -103,6 +106,7 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
     }
   };
 
+  // Convert base64 string to a file object
   const convertBase64ToFile = (base64String: string) => {
     const byteCharacters = atob(base64String);
     const byteArrays = [];
@@ -123,6 +127,7 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
     return blob;
   };
 
+  // Download audio file
   const downloadAudio = () => {
     if (!audioUrl) {
       return;
@@ -137,6 +142,7 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
     URL.revokeObjectURL(url);
   };
 
+  // Close share modal
   const handleClose = () => {
     setShowShareModal(false);
   };
@@ -161,6 +167,7 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
         />
       </Head>
 
+      {/* Share Modal */}
       <ShareModal
         isOpen={showShareModal}
         onClose={handleClose}
@@ -301,17 +308,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
   );
   const movieData = await res.json();
+  const movie: MovieType = movieData;
 
   const similarMoviesRes = await fetch(
     `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
   );
 
-  const movies = await similarMoviesRes.json();
+  const moviesData = await similarMoviesRes.json();
+  const movies: MovieType[] = moviesData.results;
 
   return {
     props: {
-      movie: movieData,
-      similarMovies: movies.results,
+      movie: movie,
+      similarMovies: movies,
     },
   };
 };

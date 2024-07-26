@@ -1,16 +1,15 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { CiSearch, CiUser } from "react-icons/ci";
-import { IoIosSearch } from "react-icons/io";
 
 function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchString, setSearchString] = useState("");
   const router = useRouter();
 
+  // Handle scroll event to toggle navbar background color
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -26,6 +25,7 @@ function NavBar() {
     };
   }, []);
 
+  // Navigate to search page on pressing Enter
   const handleKeyDown = (event: any) => {
     if (event.key === "Enter") {
       handleEnterPress();
@@ -42,6 +42,7 @@ function NavBar() {
         isScrolled ? "bg-black" : "bg-transparent"
       }`}
     >
+      {/* Logo Link */}
       <Link href="/" className="text-white text-2xl font-bold">
         <Image
           src={`/logo.png`}
@@ -58,6 +59,7 @@ function NavBar() {
         />
       </Link>
 
+      {/* Search and User Icon */}
       <div className="flex items-center space-x-4">
         <div className="flex items-center rounded-md px-2 bg-white/25 backdrop-blur-xl">
           <CiSearch color="white" size={20} />

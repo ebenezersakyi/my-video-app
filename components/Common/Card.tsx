@@ -7,19 +7,23 @@ import { MovieType } from "../../types";
 import MovieModal from "../Modal/MovieModal";
 import { useRouter } from "next/router";
 
-function Card({ movie }: any) {
+interface CardProps {
+  movie: MovieType;
+}
+
+const Card: React.FC<CardProps> = ({ movie }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null);
 
   const router = useRouter();
 
-  const handleOpen = (movie: any) => {
+  const handleOpen = (movie: MovieType) => {
     setSelectedMovie(movie);
     setIsOpen(true);
   };
   const handleClose = () => setIsOpen(false);
 
-  const handleNavigate = (movieId: any) => {
+  const handleNavigate = (movieId: number) => {
     router.push(`/movies/${movieId}`);
   };
 
@@ -73,6 +77,6 @@ function Card({ movie }: any) {
       </div>
     </div>
   );
-}
+};
 
 export default Card;

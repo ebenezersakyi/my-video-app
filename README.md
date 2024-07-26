@@ -58,8 +58,7 @@ GitHub Repository: [My Video App](https://github.com/ebenezersakyi/my-video-app.
 
    The application will be available at [http://localhost:3000](http://localhost:3000).
 
-**Node server for generating story and converting text to audio:**
-The code the API server is available [here](https://github.com/ebenezersakyi/video-app-api.git).
+**The code the Node server for generating movie stories and converting text to audio is available [here](https://github.com/ebenezersakyi/video-app-api.git).**
 
 ## Approach and Trade-offs
 

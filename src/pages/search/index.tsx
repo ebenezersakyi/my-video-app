@@ -8,12 +8,13 @@ import { BarLoader } from "react-spinners";
 import { IoClose, IoFilter } from "react-icons/io5";
 
 function Search() {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<MovieType[]>([]);
   const [filteredMovies, setFilteredMovies] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState(false);
   const [showFilterDialog, setShowFilterDialog] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("all");
 
+  // Handle filter change
   const handleFilterChange = (e: any) => {
     setSelectedFilter(e.target.value);
   };
@@ -21,6 +22,7 @@ function Search() {
   const router = useRouter();
   const { query } = router.query;
 
+  // Fetch movies based on search query
   const getMovies = async () => {
     try {
       setLoading(true);
@@ -48,6 +50,7 @@ function Search() {
     setShowFilterDialog(false);
   };
 
+  // Apply selected filter to the movie list
   const applyFilter = () => {
     let filtered: MovieType[] = [];
 

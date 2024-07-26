@@ -13,7 +13,8 @@ interface HomePageProps {
 const HomePage = ({ movies }: HomePageProps) => {
   const [bannerMovies, setBannerMovies] = useState<any>([]);
 
-  function getRandomItems(arr: MovieType[], numItems: number): MovieType[] {
+  // Function to get random movies for the carousel component
+  function getRandomMovies(arr: MovieType[], numItems: number): MovieType[] {
     const shuffled = arr.slice();
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -23,7 +24,7 @@ const HomePage = ({ movies }: HomePageProps) => {
   }
 
   useEffect(() => {
-    const randomMovies = getRandomItems(movies, 3);
+    const randomMovies = getRandomMovies(movies, 3);
     setBannerMovies(randomMovies);
   }, [movies]);
 
@@ -59,11 +60,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
   }
 
-  const movies = await res.json();
+  const data = await res.json();
+  const movies: MovieType[] = data.results;
 
   return {
     props: {
-      movies: movies.results,
+      movies: movies,
     },
   };
 };

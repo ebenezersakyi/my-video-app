@@ -60,25 +60,12 @@ function Banner({ movies }: any) {
                     Science Fiction
                   </span>
                   <span className="flex mt-[5px] space-x-1">
-                    {[1, 2, 3, 4, 5].map((item: any, index: any) => {
+                    {[1, 2, 3, 4, 5].map((item, index) => {
                       return <IoIosStar key={index} size={15} color="white" />;
                     })}
                   </span>
                   <span className="text-white font-roboto text-[35px] font-semibold sm:text-[50px] text-shadow">
                     {movie?.title}
-                  </span>
-
-                  <span className="flex space-x-5">
-                    {genres?.map((item: any, index: any) => {
-                      return (
-                        <span
-                          key={index}
-                          className="relative px-4 py-2 items-center content-center text-white border border-gray-200 text-[14px] rounded-full overflow-hidden group"
-                        >
-                          {item}
-                        </span>
-                      );
-                    })}
                   </span>
                   <span className="text-white font-roboto text-[15px] mt-[15px] line-clamp-4">
                     {movie?.overview}
