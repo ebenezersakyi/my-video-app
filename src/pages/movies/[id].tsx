@@ -46,7 +46,7 @@ const MovieDetail = ({ movie, similarMovies }: HomePageProps) => {
   const getStory = async (movieData: any) => {
     try {
       const res = await fetch(
-        `https://job-finder-api.vercel.app/gemini/video-app`,
+        `https://video-app-api-sigma.vercel.app/generate-story`,
         {
           method: "POST",
           headers: {
