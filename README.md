@@ -58,15 +58,8 @@ GitHub Repository: [My Video App](https://github.com/ebenezersakyi/my-video-app.
 
    The application will be available at [http://localhost:3000](http://localhost:3000).
 
-5. **Run the API server:**
-
-   ```sh
-   cd api
-   npm install
-   npm start
-   ```
-
-   The API server will be available at [http://localhost:5000](http://localhost:5000).
+**Node server for generating story and converting text to audio:**
+The code the API server is available [here](https://github.com/ebenezersakyi/video-app-api.git).
 
 ## Approach and Trade-offs
 
