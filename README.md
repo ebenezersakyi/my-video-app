@@ -58,7 +58,7 @@ GitHub Repository: [My Video App](https://github.com/ebenezersakyi/my-video-app.
 
    The application will be available at [http://localhost:3000](http://localhost:3000).
 
-**The code the Node server for generating movie stories and converting text to audio is available [here](https://github.com/ebenezersakyi/video-app-api.git).**
+**The code to the node server for generating movie stories and converting text to audio is available [here](https://github.com/ebenezersakyi/video-app-api.git).**
 
 ## Approach and Trade-offs
 
@@ -71,7 +71,7 @@ GitHub Repository: [My Video App](https://github.com/ebenezersakyi/my-video-app.
 ### Trade-offs
 
 - **Learning Curve:** Tailwind CSS has a steeper learning curve compared to plain CSS, but it significantly sped up the styling process once I got the hang of it.
-- **Performance:** Opted for server-side rendering to improve SEO and initial load performance, but this comes with the cost of increased server load.
+- **Performance:** Server-side rendering to improve SEO and initial load performance, but this comes with the cost of increased server load.
 
 ## Additional Features
 
